@@ -10,7 +10,7 @@ mosq_env <- cbind(mosq_illinois, bioclim_values[, -1])
 
 bio_only <- mosq_env %>% select(starts_with("BIO"))
 cor_matrix <- cor(bio_only, use = "complete.obs")
-#print(cor_matrix)
+write.csv(cor_matrix, "correlation_matrix.csv", row.names = TRUE)
 
 png("correlogram.png", width = 1200, height = 1200, res = 150)
 corrplot(cor_matrix, method = "color", type = "upper", tl.col = "black",
