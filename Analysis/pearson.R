@@ -8,5 +8,6 @@ library(corrplot)
 bioclim_values <- extract(cropped_stack, mosq_points_vect)
 mosq_env <- cbind(mosq_illinois, bioclim_values[, -1])
 
-print(head(mosq_env[, c("decimalLatitude", "decimalLongitude", 
-                  "BIO1 - Annual Mean Temperature", "BIO12 - Annual Precipitation")]))
+bio_only <- mosq_env %>% select(starts_with("BIO"))
+cor_matrix <- cor(bio_only, use = "complete.obs")
+print(cor_matrix)
