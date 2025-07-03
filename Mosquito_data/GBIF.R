@@ -25,3 +25,9 @@ mosq_illinois <- cleaned_occ %>%
 
 print(summary(mosq_illinois[, c("decimalLatitude", "decimalLongitude")]))
 print(nrow(mosq_illinois))
+
+library(terra)
+mosq_points_vect <- vect(mosq_illinois, 
+                        geom = c("decimalLongitude", "decimalLatitude"),
+                        crs = "EPSG:4326")
+saveRDS(mosq_points_vect, file = "mosq_points_vect.rds")
