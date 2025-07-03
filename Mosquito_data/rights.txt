@@ -1,0 +1,2 @@
+Dataset: Global compendium of Aedes albopictus occurrence 
+Rights as supplied: http://creativecommons.org/publicdomain/zero/1.0/legalcode
