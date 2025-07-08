@@ -22,18 +22,9 @@ states_sf <- states(cb = TRUE, year = 2024)
 illinois_sf <- subset(states_sf, NAME == "Illinois")
 illinois_vect <- vect(illinois_sf)
 
-mosq_illinois <- cleaned_occ %>%
-  filter(decimalLatitude >= illinois_bbox$ymin,
-         decimalLatitude <= illinois_bbox$ymax,
-         decimalLongitude >= illinois_bbox$xmin,
-         decimalLongitude <= illinois_bbox$xmax)
-
-print(summary(mosq_illinois[, c("decimalLatitude", "decimalLongitude")]))
-print(nrow(mosq_illinois))
-
-
-library(terra)
-mosq_points_vect <- vect(mosq_illinois, 
+mosq_points_vect <- vect(cleaned_occ, 
                         geom = c("decimalLongitude", "decimalLatitude"),
                         crs = "EPSG:4326")
-saveRDS(mosq_points_vect, file = "mosq_points_vect.rds")
+
+mosq_illinois_shp <- mosq_points_vect[illinois_vect, ]
+saveRDS(mosq_illinois_shp, "mosq_illinois_shp.rds")
