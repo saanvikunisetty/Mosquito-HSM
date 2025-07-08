@@ -17,6 +17,11 @@ illinois_bbox <- list(
   ymax = 42.5
 )
 
+options(tigris_use_cache = TRUE)
+states_sf <- states(cb = TRUE, year = 2024)
+illinois_sf <- subset(states_sf, NAME == "Illinois")
+illinois_vect <- vect(illinois_sf)
+
 mosq_illinois <- cleaned_occ %>%
   filter(decimalLatitude >= illinois_bbox$ymin,
          decimalLatitude <= illinois_bbox$ymax,
@@ -25,6 +30,7 @@ mosq_illinois <- cleaned_occ %>%
 
 print(summary(mosq_illinois[, c("decimalLatitude", "decimalLongitude")]))
 print(nrow(mosq_illinois))
+
 
 library(terra)
 mosq_points_vect <- vect(mosq_illinois, 
