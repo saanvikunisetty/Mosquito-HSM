@@ -54,3 +54,5 @@ for (i in 1:nlyr(cropped_stack)) {
   names(cropped_stack)[i] <- new_name
   cat("Layer", i, "renamed to:", new_name, "\n")
 }
+
+saveRDS(cropped_stack, "c:/Users/4saan/Desktop/Mosquito-HSM/cropped_stack.rds")
