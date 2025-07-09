@@ -20,3 +20,23 @@ print("Selected variables: ")
 print(selected_vars)
 vif_table <- as.data.frame(vif_results@results)
 write.csv(vif_table, "vif.csv", row.names = FALSE)
+
+#Pairwise correlation testing
+colnames(bio_vars) <- gsub("\\.\\.\\..*", "", colnames(bio_vars))
+selected_vars <- bio_vars[, c("BIO2", "BIO5", "BIO7", "BIO10", "BIO12", "BIO18", "BIO19")]
+cor_matrix_selected <- cor(selected_vars, use = "complete.obs")
+abs_cor_matrix <- abs(cor_matrix_selected)
+diag(abs_cor_matrix) <- NA
+
+max_cor <- which(abs_cor_matrix == max(abs_cor_matrix, na.rm = TRUE), arr.ind = TRUE)
+var1 <- rownames(abs_cor_matrix)[max_cor[1]]
+var2 <- colnames(abs_cor_matrix)[max_cor[2]]
+cat("Most collinear pair is:", var1, "and", var2, "\n")
+
+mean_cor_var1 <- mean(abs_cor_matrix[var1, ], na.rm = TRUE)
+mean_cor_var2 <- mean(abs_cor_matrix[var2, ], na.rm = TRUE)
+var_to_remove <- ifelse(mean_cor_var1 > mean_cor_var2, var1, var2)
+cat("Removing variable:", var_to_remove, "\n")
+
+final_vars <- selected_vars[, !(names(selected_vars) %in% var_to_remove)]
+saveRDS(final_vars, file = "c:/Users/4saan/Desktop/Mosquito-HSM/Analysis/final_vars.rds")
