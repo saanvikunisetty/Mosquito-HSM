@@ -34,7 +34,17 @@ for raster_file in raster_files:
     raster = rasterio.open(raster_path)
     raster_layers[raster_file.replace(".tif", "")] = raster
 
-print(f"Combined GeoDataFrame CRS: {combined_gdf.crs}")
-print(f"Sample geometries:\n{combined_gdf.geometry.head()}")
-print(f"Raster files found: {raster_files}")
-print(f"Raster layers loaded: {list(raster_layers.keys())}")
+#print(f"Combined GeoDataFrame CRS: {combined_gdf.crs}")
+#print(f"Sample geometries:\n{combined_gdf.geometry.head()}")
+#print(f"Raster files found: {raster_files}")
+#print(f"Raster layers loaded: {list(raster_layers.keys())}")
+
+env_data = {}
+
+for raster_file in raster_files:
+    raster_path = os.path.join(environment_dir, raster_file)
+    var_name = raster_file.replace(".tif", "")
+    values = point_query(combined_gdf, raster_path, interpolate='nearest')
+    env_data[var_name] = values
+
+env_df = pd.DataFrame(env_data)
