@@ -21,5 +21,13 @@ p <- ggplot() +
   labs(title = "Mosquito Presence and Pseudoabsence Points in Illinois") +
   theme_minimal()
 
-ggsave("c:/Users/4saan/Desktop/Mosquito-HSM/Visualizations/presence+absence.png", 
-       plot = p, width = 8, height = 8, dpi = 300, bg = "white")
+df <- as.data.frame(thinned_data)
+write.csv(df, "presence_pts.csv", row.names = FALSE)
+
+bg_coords <- st_coordinates(bg_sf)
+bg_df <- data.frame(decimalLongitude = bg_coords[, "X"],
+                    decimalLatitude = bg_coords[, "Y"])
+write.csv(bg_df, "background_pts.csv", row.names = FALSE)
+
+#ggsave("c:/Users/4saan/Desktop/Mosquito-HSM/Visualizations/presence+absence.png", 
+       #plot = p, width = 8, height = 8, dpi = 300, bg = "white")
