@@ -48,3 +48,16 @@ for raster_file in raster_files:
     env_data[var_name] = values
 
 env_df = pd.DataFrame(env_data)
+
+combined_export_df = pd.concat([
+    combined_df[["decimalLongitude", "decimalLatitude", "presence"]].reset_index(drop=True),
+    env_df
+], axis=1)
+
+print(combined_export_df.head())
+print(combined_export_df.info())
+print(combined_export_df.describe())
+print(combined_export_df["presence"].value_counts())
+
+output_csv = "c:/Users/4saan/Desktop/Mosquito-HSM/Modeling/input.csv"
+combined_export_df.to_csv(output_csv, index=False)
