@@ -1,0 +1,11 @@
+Fri Jul 18 11:00:41 CDT 2025
+MaxEnt version 3.4.4
+No environmental layers selected
+java.lang.Exception
+	at density.Utils.logError(Utils.java:218)
+	at density.Utils.popupError(Utils.java:224)
+	at density.Runner.popupError(Runner.java:107)
+	at density.Runner.start(Runner.java:293)
+	at density.GUI$7.construct(GUI.java:342)
+	at density.SwingWorker$2.run(SwingWorker.java:131)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
